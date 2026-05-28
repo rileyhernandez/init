@@ -1,0 +1,15 @@
+{
+  "lsp": {
+    "{{lsp_name}}": {
+      "binary": {
+        "path": "distrobox-enter",
+        "arguments": ["-n", "{{container_name}}", "--", "{{lsp_name}}"]
+      },
+      "initialization_options": {
+        "check": {
+          "command": "clippy"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "languages": {
+    "Python": {
+      "language_servers": ["ruff", "basedpyright"]
+    }
+  },
+  "lsp": {
+    "ruff": {
+      "binary": {
+        "path": "distrobox-enter",
+        "arguments": ["-n", "{{container_name}}", "--", "sh", "-c", "cd \"$0\" && uv run --group dev ruff server", "$WORKSPACE_ROOT"]
+      }
+    },
+    "basedpyright": {
+      "binary": {
+        "path": "distrobox-enter",
+        "arguments": ["-n", "{{container_name}}", "--", "sh", "-c", "cd \"$0\" && uv run --group dev basedpyright-langserver --stdio", "$WORKSPACE_ROOT"]
+      }
+    }
+  }
+}

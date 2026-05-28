@@ -1,0 +1,33 @@
+set shell := ["bash", "-c"]
+
+# Run a command inside the '{{container_name}}' container matching the current host directory
+[private]
+run-in-lab command:
+    distrobox-enter -n {{container_name}} -- bash -c "cd \{{invocation_directory()}} && \{{command}}"
+
+# Run the project
+run:
+    @just run-in-lab "uv run python -m {{project_name}}"
+
+# Lint and fix code
+lint:
+    @just run-in-lab "uv run ruff check --fix ."
+
+# Format code
+format:
+    @just run-in-lab "uv run ruff format ."
+
+# Type-check code
+typecheck:
+    @just run-in-lab "uv run basedpyright"
+
+# Run all checks
+check: lint format typecheck
+
+# Run tests
+test:
+    @just run-in-lab "uv run pytest"
+
+# Add dependencies to the project
+add +args:
+    @just run-in-lab "uv add \{{args}}"
